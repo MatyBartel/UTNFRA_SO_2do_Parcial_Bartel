@@ -1,0 +1,23 @@
+---
+# TAREAS PARA 2do Parcial
+
+- debug:
+    msg: "Tareas del 2do Parcial"
+
+- name: "Agregar archivo datos_alumno usando template"
+  template:
+    src: template_datos_alumno.j2
+    dest: /tmp/2do_parcial/alumno/datos_alumno.txt
+
+- name: "Agregar archivo datos_equipo usando template"
+  template:
+    src: template_datos_equipo.j2
+    dest: /tmp/2do_parcial/equipo/datos_equipo.txt
+
+- name: "Agregar para que 2PSupervisores no requiera passwd"
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: '%2PSupervisores ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
